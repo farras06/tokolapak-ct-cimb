@@ -1,6 +1,14 @@
 import React from "react";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
+import Cookies from "universal-cookie";
+
 import TextField from "../../components/TextField/TextField";
 import ButtonUI from "../../components/Button/Button";
+import "./AuthScreen.css";
+
+// actions
+import { registerHandler, loginHandler } from "../../../redux/actions";
 
 import { registerHandler, loginHandler } from "../../../redux/actions/index"
 import { connect } from "react-redux"
@@ -9,123 +17,177 @@ import Cookie from "universal-cookie"
 // const cookiesObject = new Cookie();
 class AuthScreen extends React.Component {
   state = {
-    username: "",
-    fullName: "",
-    password: "",
-    address: "",
-    users: [],
-    kondisi: true,
-    isLoading: false,
-  }
-  conditionFormLogin = () => {
-    this.setState({ kondisi: true });
+    activePage: "register",
+    loginForm: {
+      username: "",
+      password: "",
+      showPassword: false,
+    },
+    registerForm: {
+      username: "",
+      fullName: "",
+      email: "",
+      password: "",
+      showPassword: false,
+    },
+  };
+
+  componentDidUpdate() {
+    if (this.props.user.id) {
+      const cookie = new Cookies();
+      cookie.set("authData", JSON.stringify(this.props.user));
+    }
   }
 
-  conditionFormRegister = () => {
-    this.setState({ kondisi: false });
-  }
+  inputHandler = (e, field, form) => {
+    const { value } = e.target;
+    this.setState({
+      [form]: {
+        ...this.state[form],
+        [field]: value,
+      },
+    });
 
-  inputHandler = (e, field) => {
-    this.setState({ [field]: e.target.value });
-  }
+    // this.setState({ loginForm: {
+    //   ...this.state.loginForm,
+    //   [fieldYangDiganti]: value
+    // }})
+  };
 
-  userLogin = () => {
-    const { username, password } = this.state
-    const userData = {
+  registerBtnHandler = () => {
+    const { username, fullName, password, email } = this.state.registerForm;
+    let newUser = {
       username,
-      password,
-    };
-    this.props.onLogin(userData)
-    this.setState({ username: "" })
-    this.setState({ password: "" })
-    this.setState({ errMsg: "" })
-  }
-
-  userRegister = () => {
-    const { username, fullName, password, address } = this.state
-    const userData = {
-      username,
-      password,
       fullName,
-      address,
+      password,
+      email,
     };
-    this.props.onRegister(userData)
-    this.setState({ username: "" })
-    this.setState({ password: "" })
-    this.setState({ fullName: "" })
-    this.setState({ address: "" })
-    this.setState({ errMsg: "" })
 
-  }
+    this.props.onRegister(newUser);
+  };
 
-  // componentDidUpdate() {
-  //   if (this.props.user.id) {
-  //     cookiesObject.set("authData", JSON.stringify(this.props.user))
-  //   }
-  // }
+  loginBtnHandler = () => {
+    const { username, password } = this.state.loginForm;
+    let newUser = {
+      username,
+      password,
+    };
+
+    this.props.onLogin(newUser);
+  };
+
+  renderAuthComponent = () => {
+    const { activePage } = this.state;
+    if (activePage == "register") {
+      return (
+        <div className="mt-5">
+          <h3>Register</h3>
+          <p className="mt-4">
+            You will get the best recommendation for rent house in near of you
+          </p>
+          <TextField
+            value={this.state.registerForm.username}
+            onChange={(e) => this.inputHandler(e, "username", "registerForm")}
+            placeholder="Username"
+            className="mt-5"
+          />
+          <TextField
+            value={this.state.registerForm.fullName}
+            onChange={(e) => this.inputHandler(e, "fullName", "registerForm")}
+            placeholder="Name"
+            className="mt-2"
+          />
+          <TextField
+            value={this.state.registerForm.email}
+            onChange={(e) => this.inputHandler(e, "email", "registerForm")}
+            placeholder="Email"
+            className="mt-2"
+          />
+          <TextField
+            value={this.state.registerForm.password}
+            onChange={(e) => this.inputHandler(e, "password", "registerForm")}
+            placeholder="Password"
+            className="mt-2"
+          />
+          <div className="d-flex justify-content-center">
+            <ButtonUI
+              type="contained"
+              onClick={this.registerBtnHandler}
+              className="mt-4"
+            >
+              Register
+            </ButtonUI>
+          </div>
+        </div>
+      );
+    } else {
+      return (
+        <div className="mt-5">
+          <h3>Log In</h3>
+          <p className="mt-4">
+            Welcome back.
+            <br /> Please, login to your account
+          </p>
+          <TextField
+            value={this.state.loginForm.username}
+            onChange={(e) => this.inputHandler(e, "username", "loginForm")}
+            placeholder="Username"
+            className="mt-5"
+          />
+          <TextField
+            value={this.state.loginForm.password}
+            onChange={(e) => this.inputHandler(e, "password", "loginForm")}
+            placeholder="Password"
+            className="mt-2"
+          />
+          <div className="d-flex justify-content-center">
+            <ButtonUI
+              onClick={this.loginBtnHandler}
+              type="contained"
+              className="mt-4"
+            >
+              Login
+            </ButtonUI>
+          </div>
+        </div>
+      );
+    }
+  };
 
   render() {
-
-    const {
-      username,
-      password,
-      fullName,
-      address,
-    } = this.state;
-
+    if (this.props.user.id > 0) {
+      return <Redirect to="/" />;
+    }
     return (
       <div className="container">
         <div className="row mt-5">
           <div className="col-5">
-            <div className="d-flex">
-              <input className="btn" type="button" value="Login" onClick={this.conditionFormLogin} />
-              <input className="btn" type="button" value="Register" onClick={this.conditionFormRegister} />
+            <div className="d-flex flex-row">
+              <ButtonUI
+                className={`auth-screen-btn ${
+                  this.state.activePage == "register" ? "active" : null
+                  }`}
+                type="outlined"
+                onClick={() => this.setState({ activePage: "register" })}
+              >
+                Register
+              </ButtonUI>
+              <ButtonUI
+                className={`ml-3 auth-screen-btn ${
+                  this.state.activePage == "login" ? "active" : null
+                  }`}
+                type="outlined"
+                onClick={() => this.setState({ activePage: "login" })}
+              >
+                Login
+              </ButtonUI>
             </div>
-            {
-              (this.state.kondisi) ? (
-                <div>
-                  <h3 style={{ marginTop: "10px" }}>Log In</h3>
-                  <p className="mt-4">
-                    Welcome Back. {this.props.user.username}
-                    <br />Please, Login to your account</p>
-                  <p>{this.props.user.errMsg}</p>
-                  <TextField
-                    placeholder="Username"
-                    className="mt-5"
-                    value={username}
-                    onChange={(e) => this.inputHandler(e, "username")}
-                  />
-                  <TextField
-                    placeholder="Password"
-                    className="mt-2"
-                    value={password}
-                    onChange={(e) => this.inputHandler(e, "password")}
-                  />
-                  <div className="d-flex justify-content-center">
-                    <ButtonUI type="contained" className="mt-4" onClick={this.userLogin}>
-                      Login
-                                        </ButtonUI>
-                  </div>
-                </div>
-              ) : (
-                  <div>
-                    <h3 style={{ marginTop: "10px" }}>Register</h3>
-                    <p className="mt-4">
-                      Hello new User,Please Register your new account
-                                    <br />Feel a new experience in our website</p>
-                    <p>{this.props.user.errMsg}</p>
-                    <TextField value={username} placeholder="Username" className="mt-5" onChange={(e) => this.inputHandler(e, "username")} />
-                    <TextField value={fullName} placeholder="Fullname" className="mt-2" onChange={(e) => this.inputHandler(e, "fullName")} />
-                    <TextField value={password} placeholder="Password" className="mt-2" onChange={(e) => this.inputHandler(e, "password")} />
-                    <TextField value={address} placeholder="Address" className="mt-2" onChange={(e) => this.inputHandler(e, "address")} />
-                    <div className="d-flex justify-content-center">
-                      <ButtonUI type="contained" className="mt-4" onClick={this.userRegister}>
-                        Register
-                                            </ButtonUI>
-                    </div>
-                  </div>
-                )
-            }
+            {this.props.user.errMsg ? (
+              <div className="alert alert-danger mt-3">
+                {this.props.user.errMsg}
+              </div>
+            ) : null}
+            {this.renderAuthComponent()}
           </div>
           <div className="col-7">Picture</div>
         </div>
@@ -134,16 +196,15 @@ class AuthScreen extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    user: state.user
-  }
-}
+    user: state.user,
+  };
+};
 
 const mapDispatchToProps = {
+  onRegister: registerHandler,
   onLogin: loginHandler,
-  onRegister: registerHandler
+};
 
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(AuthScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(AuthScreen);
