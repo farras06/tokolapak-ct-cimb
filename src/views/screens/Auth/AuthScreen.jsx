@@ -72,6 +72,19 @@ class AuthScreen extends React.Component {
     this.props.onLogin(newUser);
   };
 
+  checkboxHandler = (e, form) => {
+    const { checked } = e.target;
+
+    console.log(checked);
+
+    this.setState({
+      [form]: {
+        ...this.state[form],
+        showPassword: checked,
+      },
+    });
+  };
+
   renderAuthComponent = () => {
     const { activePage } = this.state;
     if (activePage == "register") {
@@ -104,7 +117,15 @@ class AuthScreen extends React.Component {
             onChange={(e) => this.inputHandler(e, "password", "registerForm")}
             placeholder="Password"
             className="mt-2"
+            type={this.state.registerForm.showPassword ? "text" : "password"}
           />
+          <input
+            type="checkbox"
+            onChange={(e) => this.checkboxHandler(e, "registerForm")}
+            className="mt-3"
+            name="showPasswordRegister"
+          />{" "}
+          Show Password
           <div className="d-flex justify-content-center">
             <ButtonUI
               type="contained"
