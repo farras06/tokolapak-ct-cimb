@@ -7,12 +7,8 @@ import TextField from "../../components/TextField/TextField";
 import ButtonUI from "../../components/Button/Button";
 import "./AuthScreen.css";
 
-// actions
 import { registerHandler, loginHandler } from "../../../redux/actions";
 
-import { registerHandler, loginHandler } from "../../../redux/actions/index"
-import { connect } from "react-redux"
-import Cookie from "universal-cookie"
 
 // const cookiesObject = new Cookie();
 class AuthScreen extends React.Component {
