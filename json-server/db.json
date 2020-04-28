@@ -1,8 +1,10 @@
 {
   "users": [
     {
-      "username": "seto",
-      "password": "password",
+      "username": "farras",
+      "fullName": "farras ammar",
+      "password": "123",
+      "address": "alamat",
       "id": 1
     }
   ]

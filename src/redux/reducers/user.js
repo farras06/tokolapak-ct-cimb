@@ -1,35 +1,58 @@
 import userType from "../types/user"
 import { stat } from "fs";
 
-const { ON_LOGIN_SUCCESS, ON_LOGIN_FAIL, ON_LOGOUT_SUCCESS, ON_REGISTER_FAIL } = userType
+const { ON_LOGIN_SUCCESS, ON_LOGIN_FAIL, ON_LOGOUT_SUCCESS, ON_REGISTER_FAIL, ON_REGISTER_SUCCESS } = userType
 
 const init_state = {
   id: 0,
   username: "",
   fullName: "",
-  address: {},
-  role: "",
+  address: "",
   errMsg: "",
 };
 
 export default (state = init_state, action) => {
   switch (action.type) {
     case ON_LOGIN_SUCCESS:
-      const { username, fullName, role, id } = action.payload;
+      alert("BERHASIL LOGIN")
+      const { username, fullName, address, id, password } = action.payload;
       return {
         ...state,
         username,
         fullName,
-        role,
+        address,
         id,
+        errMsg: "",
+      };
+
+    case ON_LOGIN_FAIL:
+      return { ...state, errMsg: action.payload }
+
+    case ON_REGISTER_SUCCESS:
+      alert("Berhasil Register")
+      return {
+        ...state,
+        username,
+        fullName,
+        address,
+        password,
+        id,
+        errMsg: "",
       };
 
     case ON_REGISTER_FAIL:
       return { ...state, errMsg: action.payload }
 
-    case ON_LOGIN_FAIL:
-      return { ...state, errMsg: action.payload }
-
+    case ON_LOGOUT_SUCCESS:
+      return {
+        ...state,
+        username: action.payload,
+        fullName: action.payload,
+        role: action.payload,
+        password: action.payload,
+        id: action.payload,
+        errMsg: "Berhasil Logout"
+      }
     default:
       return { ...state }
   }
