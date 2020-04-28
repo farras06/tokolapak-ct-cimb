@@ -1,5 +1,4 @@
 import userType from "../types/user"
-import { stat } from "fs";
 
 const { ON_LOGIN_SUCCESS, ON_LOGIN_FAIL, ON_LOGOUT_SUCCESS, ON_REGISTER_FAIL, ON_REGISTER_SUCCESS } = userType
 
@@ -44,15 +43,7 @@ export default (state = init_state, action) => {
       return { ...state, errMsg: action.payload }
 
     case ON_LOGOUT_SUCCESS:
-      return {
-        ...state,
-        username: action.payload,
-        fullName: action.payload,
-        role: action.payload,
-        password: action.payload,
-        id: action.payload,
-        errMsg: "Berhasil Logout"
-      }
+      return { ...state, init_state }
     default:
       return { ...state }
   }

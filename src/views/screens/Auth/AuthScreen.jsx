@@ -6,7 +6,7 @@ import { registerHandler, loginHandler } from "../../../redux/actions/index"
 import { connect } from "react-redux"
 import Cookie from "universal-cookie"
 
-const cookiesObject = new Cookie();
+// const cookiesObject = new Cookie();
 class AuthScreen extends React.Component {
   state = {
     username: "",
@@ -29,7 +29,7 @@ class AuthScreen extends React.Component {
     this.setState({ [field]: e.target.value });
   }
 
-  LoginDataHandler = () => {
+  userLogin = () => {
     const { username, password } = this.state
     const userData = {
       username,
@@ -41,7 +41,7 @@ class AuthScreen extends React.Component {
     this.setState({ errMsg: "" })
   }
 
-  postDataHandler = () => {
+  userRegister = () => {
     const { username, fullName, password, address } = this.state
     const userData = {
       username,
@@ -58,11 +58,11 @@ class AuthScreen extends React.Component {
 
   }
 
-  componentDidUpdate() {
-    if (this.props.user.id) {
-      cookiesObject.set("authData", JSON.stringify(this.props.user))
-    }
-  }
+  // componentDidUpdate() {
+  //   if (this.props.user.id) {
+  //     cookiesObject.set("authData", JSON.stringify(this.props.user))
+  //   }
+  // }
 
   render() {
 
@@ -102,7 +102,7 @@ class AuthScreen extends React.Component {
                     onChange={(e) => this.inputHandler(e, "password")}
                   />
                   <div className="d-flex justify-content-center">
-                    <ButtonUI type="contained" className="mt-4" onClick={this.LoginDataHandler}>
+                    <ButtonUI type="contained" className="mt-4" onClick={this.userLogin}>
                       Login
                                         </ButtonUI>
                   </div>
@@ -119,7 +119,7 @@ class AuthScreen extends React.Component {
                     <TextField value={password} placeholder="Password" className="mt-2" onChange={(e) => this.inputHandler(e, "password")} />
                     <TextField value={address} placeholder="Address" className="mt-2" onChange={(e) => this.inputHandler(e, "address")} />
                     <div className="d-flex justify-content-center">
-                      <ButtonUI type="contained" className="mt-4" onClick={this.postDataHandler}>
+                      <ButtonUI type="contained" className="mt-4" onClick={this.userRegister}>
                         Register
                                             </ButtonUI>
                     </div>
