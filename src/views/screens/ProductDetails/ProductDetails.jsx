@@ -3,6 +3,7 @@ import "../ProductDetails/ProductDetails.css"
 import ButtonUI from "../../components/Button/Button"
 import Axios from "axios"
 import { API_URL } from "../../../constants/API"
+import { connect } from "react-redux"
 
 class ProductDetails extends React.Component {
 
@@ -14,9 +15,16 @@ class ProductDetails extends React.Component {
             desc: "",
             category: "",
             id: 0
-
         }
     }
+
+    addToCartHandler = () => {
+        Axios.post(`${API_URL}/cart`, {
+            userID: this.params.user
+
+        })
+    }
+
 
     componentDidMount() {
         Axios.get(`${API_URL}/products/${this.props.match.params.productId}`)
@@ -66,4 +74,11 @@ class ProductDetails extends React.Component {
     }
 }
 
-export default ProductDetails
+const mapStateToProps = (state) => {
+    return {
+        user: state.user,
+    };
+};
+
+
+export default connect(mapStateToProps)(ProductDetails)
