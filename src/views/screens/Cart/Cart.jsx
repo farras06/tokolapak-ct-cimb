@@ -41,12 +41,6 @@ class Cart extends React.Component {
             <td>{val.product.price}</td>
             <td>{val.product.category}</td>
             <td><img src={val.product.image} alt="" style={{ height: "50px" }} /></td>
-            {/* <td><ButtonUI
-              type="contained"
-              onClick={() => this.deleteItemCart(val.id)}
-            >
-              Delete
-                </ButtonUI></td> */}
           </tr>
         </tbody>
       )
