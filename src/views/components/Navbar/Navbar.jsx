@@ -40,11 +40,12 @@ class Navbar extends React.Component {
             onBlur={this.onBlur}
             className={`search-bar ${
               this.state.searchBarIsFocused ? "active" : null
-            }`}
+              }`}
             type="text"
             placeholder="Cari produk impianmu disini"
           />
         </div>
+
         <div className="d-flex flex-row align-items-center">
           {/* <FontAwesomeIcon icon={faUser} style={{ fontSize: 24 }} />
           <p className="small ml-3 mr-4">Profile</p>
