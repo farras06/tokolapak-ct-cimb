@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import Cookie from "universal-cookie"
+import { logoutHandler } from "../../../redux/actions/index"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons/";
@@ -14,11 +16,18 @@ const CircleBg = ({ children }) => {
   return <div className="circle-bg">{children}</div>;
 };
 
+
+
 class Navbar extends React.Component {
+
   state = {
     searchBarIsFocused: false,
     searcBarInput: "",
   };
+
+  logoutBtnHandler = () => {
+    this.props.onLogout()
+  }
 
   onFocus = () => {
     this.setState({ searchBarIsFocused: true });
@@ -57,33 +66,39 @@ class Navbar extends React.Component {
                 className="mr-2"
                 icon={faShoppingCart}
                 style={{ fontSize: 24 }}
-              />
+              >
+
+              </FontAwesomeIcon>
+
+
               <CircleBg>
                 <small style={{ color: "#3C64B1", fontWeight: "bold" }}>
                   4
                 </small>
               </CircleBg>
+              <ButtonUI
+                className="ml-3" type="contained" onclick={this.logoutBtnHandler}> Log Out </ButtonUI>
             </>
           ) : (
-            <>
-              <ButtonUI className="mr-3" type="textual">
-                <Link
-                  style={{ textDecoration: "none", color: "inherit" }}
-                  to="/auth"
-                >
-                  Sign in
+              <>
+                <ButtonUI className="mr-3" type="textual">
+                  <Link
+                    style={{ textDecoration: "none", color: "inherit" }}
+                    to="/auth"
+                  >
+                    Sign in
                 </Link>
-              </ButtonUI>
-              <ButtonUI type="contained">
-                <Link
-                  style={{ textDecoration: "none", color: "inherit" }}
-                  to="/auth"
-                >
-                  Sign up
+                </ButtonUI>
+                <ButtonUI type="contained">
+                  <Link
+                    style={{ textDecoration: "none", color: "inherit" }}
+                    to="/auth"
+                  >
+                    Sign up
                 </Link>
-              </ButtonUI>
-            </>
-          )}
+                </ButtonUI>
+              </>
+            )}
         </div>
       </div>
     );
@@ -96,4 +111,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(Navbar);
+const mapDispatchToProps = {
+  onLogout: logoutHandler
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

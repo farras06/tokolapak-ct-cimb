@@ -4,9 +4,17 @@ import "./Cart.css";
 
 import Axios from "axios";
 import { API_URL } from "../../../constants/API";
+import { ButtonUI } from "../../components/Button/Button"
+import { Table } from "reactstrap"
 
 class Cart extends React.Component {
+
+  state = {
+    itemCart: []
+  }
+
   componentDidMount() {
+
     Axios.get(`${API_URL}/carts`, {
       params: {
         userId: this.props.user.id,
@@ -19,26 +27,50 @@ class Cart extends React.Component {
       .catch((err) => {
         console.log(err);
       });
+  }
 
-    // Axios.get(`${API_URL}/products/1`, {
-    //   params: {
-    //     _embed: "carts",
-    //   },
-    // })
-    //   .then((res) => {
-    //     console.log(res.data);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+  renderCarts = () => {
+    const { itemCart } = this.state;
+
+    return itemCart.map((val, idx) => {
+      return (
+        <tbody>
+          <tr>
+            <th scope="row">{idx + 1}</th>
+            <td>{val.product.productName}</td>
+            <td>{val.product.price}</td>
+            <td>{val.product.category}</td>
+            <td><img src={val.product.image} alt="" style={{ height: "50px" }} /></td>
+            {/* <td><ButtonUI
+              type="contained"
+              onClick={() => this.deleteItemCart(val.id)}
+            >
+              Delete
+                </ButtonUI></td> */}
+          </tr>
+        </tbody>
+      )
+    })
   }
 
   render() {
     return (
       <div className="container">
-        <div>Cart</div>
+        <div className="text-center"></div>
+        <Table hover size="sm">
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Product Name</th>
+              <th>Price</th>
+              <th>Category</th>
+              <th>Image</th>
+            </tr>
+          </thead>
+          {this.renderCarts()}
+        </Table>
       </div>
-    );
+    )
   }
 }
 

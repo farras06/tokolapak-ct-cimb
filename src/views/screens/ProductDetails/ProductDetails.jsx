@@ -19,10 +19,20 @@ class ProductDetails extends React.Component {
     }
 
     addToCartHandler = () => {
-        Axios.post(`${API_URL}/cart`, {
-            userID: this.params.user
-
+        Axios.post(`${API_URL}/carts`, {
+            userID: this.props.user.id,
+            productId: this.state.productData.id,
+            quantity: 1
         })
+
+            .then(res => {
+                console.log(res)
+                alert("Item Added")
+            })
+            .catch(err => {
+                console.log(err)
+            })
+
     }
 
 
@@ -61,7 +71,9 @@ class ProductDetails extends React.Component {
                             </p>
 
                             <div className="d-flex flex-row mt-4">
-                                <ButtonUI>Add to card </ButtonUI>
+                                <ButtonUI
+                                    onClick={this.addToCartHandler}
+                                >Add to card </ButtonUI>
                                 <ButtonUI className="ml-4" type="outlined">
                                     Add to Wish List
                                 </ButtonUI>

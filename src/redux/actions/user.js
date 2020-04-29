@@ -5,7 +5,7 @@ import userTypes from "../types/user";
 
 const { ON_LOGIN_FAIL, ON_LOGIN_SUCCESS, ON_LOGOUT_SUCCESS } = userTypes;
 
-const cookieObj = new Cookie();
+const cookie = new Cookie();
 
 export const loginHandler = (userData) => {
   return (dispatch) => {
@@ -64,7 +64,7 @@ export const userKeepLogin = (userData) => {
 };
 
 export const logoutHandler = () => {
-  cookieObj.remove("authData");
+  cookie.remove("authData");
   return {
     type: ON_LOGOUT_SUCCESS,
   };

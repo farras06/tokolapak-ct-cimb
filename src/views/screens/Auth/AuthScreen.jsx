@@ -10,7 +10,7 @@ import "./AuthScreen.css";
 import { registerHandler, loginHandler } from "../../../redux/actions";
 
 
-// const cookiesObject = new Cookie();
+
 class AuthScreen extends React.Component {
   state = {
     activePage: "register",

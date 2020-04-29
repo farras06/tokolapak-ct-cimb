@@ -72,6 +72,18 @@
       "productId": 1,
       "quantity": 1,
       "id": 4
+    },
+    {
+      "userID": 1,
+      "productId": 1,
+      "quantity": 1,
+      "id": 5
+    },
+    {
+      "userID": 1,
+      "productId": 1,
+      "quantity": 1,
+      "id": 6
     }
   ]
 }
