@@ -5,6 +5,7 @@
       "fullName": "farras ammar",
       "password": "123",
       "address": "alamat",
+      "role": "user",
       "id": 1
     },
     {
@@ -12,6 +13,7 @@
       "fullName": "Dora Emon",
       "password": "password",
       "email": "doraemon@mail.com",
+      "role": "user",
       "id": 2
     },
     {
@@ -19,7 +21,16 @@
       "fullName": "Dora Emon",
       "password": "password",
       "email": "doraemon@mail.com",
+      "role": "user",
       "id": 3
+    },
+    {
+      "username": "pikachu",
+      "fullName": "Dora Emon",
+      "password": "password",
+      "email": "doraemon@mail.com",
+      "role": "admin",
+      "id": 4
     }
   ],
   "products": [
@@ -62,19 +73,6 @@
       "id": 2
     },
     {
-      "userId": 1,
-      "productId": 1,
-      "quantity": 1,
-      "id": 3
-<<<<<<< HEAD
-    },
-    {
-      "userId": 1,
-      "productId": 1,
-      "quantity": 1,
-      "id": 4
-    },
-    {
       "userID": 1,
       "productId": 1,
       "quantity": 1,
@@ -91,8 +89,6 @@
       "productId": 3,
       "quantity": 1,
       "id": 7
-=======
->>>>>>> 9e6c221ae238649c42f75a7c99e99a98e6a2adf8
     }
   ]
 }
