@@ -64,7 +64,11 @@ export const userKeepLogin = (userData) => {
 };
 
 export const logoutHandler = () => {
+<<<<<<< HEAD
   cookie.remove("authData");
+=======
+  cookieObj.remove("authData", { path: "/" });
+>>>>>>> 508caeefe1de3177c3eb76aa793779a83e1dbb23
   return {
     type: ON_LOGOUT_SUCCESS,
   };
