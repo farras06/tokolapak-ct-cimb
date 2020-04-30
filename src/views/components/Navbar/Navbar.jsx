@@ -62,11 +62,20 @@ class Navbar extends React.Component {
             <>
               <FontAwesomeIcon icon={faUser} style={{ fontSize: 24 }} />
               <p className="small ml-3 mr-4">{this.props.user.username}</p>
+<<<<<<< HEAD
               <Link to="/cart" style={{ textDecoration: 'none', color: "inherit" }} className="d-flex flex-row">
+=======
+              <Link
+                className="d-flex flex-row"
+                to="/cart"
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+>>>>>>> 9e6c221ae238649c42f75a7c99e99a98e6a2adf8
                 <FontAwesomeIcon
                   className="mr-2"
                   icon={faShoppingCart}
                   style={{ fontSize: 24 }}
+<<<<<<< HEAD
                 >
                 </FontAwesomeIcon>
 
@@ -80,6 +89,15 @@ class Navbar extends React.Component {
               </Link>
               <ButtonUI
                 className="ml-3" type="contained" onclick={this.logoutBtnHandler}> Log Out </ButtonUI>
+=======
+                />
+                <CircleBg>
+                  <small style={{ color: "#3C64B1", fontWeight: "bold" }}>
+                    4
+                  </small>
+                </CircleBg>
+              </Link>
+>>>>>>> 9e6c221ae238649c42f75a7c99e99a98e6a2adf8
             </>
           ) : (
               <>

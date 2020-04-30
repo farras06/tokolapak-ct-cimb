@@ -66,6 +66,7 @@
       "productId": 1,
       "quantity": 1,
       "id": 3
+<<<<<<< HEAD
     },
     {
       "userId": 1,
@@ -90,6 +91,8 @@
       "productId": 3,
       "quantity": 1,
       "id": 7
+=======
+>>>>>>> 9e6c221ae238649c42f75a7c99e99a98e6a2adf8
     }
   ]
 }
