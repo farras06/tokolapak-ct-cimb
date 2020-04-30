@@ -4,7 +4,7 @@ import "./Cart.css";
 
 import Axios from "axios";
 import { API_URL } from "../../../constants/API";
-import { ButtonUI } from "../../components/Button/Button"
+import ButtonUI from "../../components/Button/Button"
 import { Table } from "reactstrap"
 
 class Cart extends React.Component {
@@ -15,14 +15,19 @@ class Cart extends React.Component {
 
   componentDidMount() {
 
+    console.log(this.props.user.id)
+
     Axios.get(`${API_URL}/carts`, {
       params: {
         userId: this.props.user.id,
         _expand: "product",
+
       },
+
     })
       .then((res) => {
-        console.log(res.data);
+        console.log(res)
+        this.setState({ itemCart: res.data });
       })
       .catch((err) => {
         console.log(err);
@@ -30,17 +35,19 @@ class Cart extends React.Component {
   }
 
   renderCarts = () => {
-    const { itemCart } = this.state;
+    return this.state.itemCart.map((val, idx) => {
+      const { quantity, product, id } = val
+      const { productName, image, price } = product
 
-    return itemCart.map((val, idx) => {
       return (
         <tbody>
           <tr>
             <th scope="row">{idx + 1}</th>
-            <td>{val.product.productName}</td>
-            <td>{val.product.price}</td>
-            <td>{val.product.category}</td>
-            <td><img src={val.product.image} alt="" style={{ height: "50px" }} /></td>
+            <td>{productName}</td>
+            <td>{price}</td>
+            <td>{quantity}</td>
+            <td><img src={image} alt="" style={{ height: "50px" }} /></td>
+            <td> <ButtonUI type="outlined"> Delete</ButtonUI></td>
           </tr>
         </tbody>
       )
@@ -57,8 +64,9 @@ class Cart extends React.Component {
               <th>No.</th>
               <th>Product Name</th>
               <th>Price</th>
-              <th>Category</th>
+              <th>Quantity</th>
               <th>Image</th>
+              <th>Action</th>
             </tr>
           </thead>
           {this.renderCarts()}
