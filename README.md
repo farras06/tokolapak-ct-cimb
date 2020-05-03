@@ -1,3 +1,15 @@
+Final Project Description :
+
+Saya berencana akan membuat toko buku online yang dimana di web tersebut terdapat beberapa page d antaranyaa :
+
+1. user page : pada user page ini user dapat register atau login, user dapat melakukan browse dan pembelian bukunya pada page ini
+2. admin page : pada admin page admin dapat menambahkan buku atau menghapuskan buku yang dijual pada toko, serta pada halaman ini juga 
+                admin dapat mengubah informasi pada buku yang di jual tersebut.
+
+
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

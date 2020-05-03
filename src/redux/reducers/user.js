@@ -9,12 +9,12 @@ const init_state = {
   address: "",
   errMsg: "",
   cookieChecked: false,
+  searchBar: "",
 };
 
 export default (state = init_state, action) => {
   switch (action.type) {
     case ON_LOGIN_SUCCESS:
-      alert("BERHASIL LOGIN")
       const { username, fullName, address, id, password } = action.payload;
       return {
         ...state,
@@ -33,6 +33,8 @@ export default (state = init_state, action) => {
       return { ...init_state, cookieChecked: true };
     case "COOKIE_CHECK":
       return { ...state, cookieChecked: true };
+    case "SEARCH_ITEMS":
+      return { ...state, searchBar: action.payload }
     default:
       return { ...state }
   }

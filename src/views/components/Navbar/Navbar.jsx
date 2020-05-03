@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import Cookie from "universal-cookie"
-import { logoutHandler } from "../../../redux/actions/index"
+import { logoutHandler, searchBarHandler } from "../../../redux/actions/index"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons/";
@@ -17,7 +17,6 @@ import { faUser } from "@fortawesome/free-regular-svg-icons";
 
 import "./Navbar.css";
 import ButtonUI from "../Button/Button";
-import { logoutHandler } from "../../../redux/actions";
 
 const CircleBg = ({ children }) => {
   return <div className="circle-bg">{children}</div>;
@@ -55,6 +54,7 @@ class Navbar extends React.Component {
   };
 
   render() {
+
     return (
       <div className="d-flex flex-row justify-content-between align-items-center py-4 navbar-container">
         <div className="logo-text">
@@ -69,6 +69,7 @@ class Navbar extends React.Component {
           <input
             onFocus={this.onFocus}
             onBlur={this.onBlur}
+            onChange={(e) => { this.props.onSearch(e.target.value) }}
             className={`search-bar ${
               this.state.searchBarIsFocused ? "active" : null
               }`}
@@ -158,11 +159,8 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-<<<<<<< HEAD
-  onLogout: logoutHandler
-=======
   onLogout: logoutHandler,
->>>>>>> 508caeefe1de3177c3eb76aa793779a83e1dbb23
+  onSearch: searchBarHandler
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

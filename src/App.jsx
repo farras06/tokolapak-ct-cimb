@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Switch, withRouter } from "react-router-dom";
 import Cookie from "universal-cookie";
 import { connect } from "react-redux";
+import { userKeepLogin, cookieChecker } from "../src/redux/actions/index"
 
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
@@ -11,12 +12,7 @@ import Navbar from "./views/components/Navbar/Navbar";
 import AuthScreen from "./views/screens/Auth/AuthScreen";
 import ProductDetails from "./views/screens/ProductDetails/ProductDetails";
 import Cart from "./views/screens/Cart/Cart";
-<<<<<<< HEAD
 import AdminDashboard from "../src/views/screens/AdminDashboard/AdminDashboard";
-=======
-import AdminDashboard from "./views/screens/Admin/AdminDashboard";
-import { userKeepLogin, cookieChecker } from "./redux/actions";
->>>>>>> 508caeefe1de3177c3eb76aa793779a83e1dbb23
 
 const cookieObj = new Cookie();
 
@@ -32,19 +28,11 @@ class App extends React.Component {
     }, 2000);
   }
 
-<<<<<<< HEAD
   adminDashboardcall = () => {
     if (this.props.user.role == "admin") {
 
     }
   }
-=======
-  renderAdminRoutes = () => {
-    if (this.props.user.role === "admin") {
-      return <Route exact path="/admin/dashboard" component={AdminDashboard} />;
-    }
-  };
->>>>>>> 508caeefe1de3177c3eb76aa793779a83e1dbb23
 
   render() {
     if (this.props.user.cookieChecked) {
@@ -60,13 +48,8 @@ class App extends React.Component {
               component={ProductDetails}
             />
             <Route exact path="/cart" component={Cart} />
-<<<<<<< HEAD
             <Route exact path="/admin" component={AdminDashboard} />
 
-=======
-            {this.renderAdminRoutes()}
-            {/* <Route path="*" component={} /> */}
->>>>>>> 508caeefe1de3177c3eb76aa793779a83e1dbb23
           </Switch>
           <div style={{ height: "120px" }} />
         </>

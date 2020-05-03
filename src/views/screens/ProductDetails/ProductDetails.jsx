@@ -4,6 +4,7 @@ import ButtonUI from "../../components/Button/Button"
 import Axios from "axios"
 import { API_URL } from "../../../constants/API"
 import { connect } from "react-redux"
+import swal from 'sweetalert'
 
 class ProductDetails extends React.Component {
 
@@ -19,22 +20,52 @@ class ProductDetails extends React.Component {
     }
 
     addToCartHandler = () => {
-        Axios.post(`${API_URL}/carts`, {
-            userID: this.props.user.id,
-            productId: this.state.productData.id,
-            quantity: 1
+        Axios.get(`${API_URL}/carts`, {
+            params: {
+                userId: this.props.user.id,
+                productId: this.state.productData.id,
+            }
         })
-
             .then(res => {
-                console.log(res)
-                alert("Item Added")
+
+                if (res.data.length == 0) {
+
+                    Axios.post(`${API_URL}/carts`, {
+                        userId: this.props.user.id,
+                        productId: this.state.productData.id,
+                        quantity: 1
+                    })
+
+                        .then(res => {
+                            console.log(res)
+                            swal("Success!", "Item Added", "success")
+                        })
+                        .catch(err => {
+                            console.log(err)
+                        })
+
+                } else {
+
+                    Axios.patch(`${API_URL}/carts/${res.data[0].id}`, {
+                        quantity: res.data[0].quantity + 1
+                    })
+
+                        .then(res => {
+                            console.log(res)
+                            swal("Success!", "Item Added", "success")
+                        })
+
+                        .catch(err => {
+                            console.log(err)
+                        })
+                }
             })
+
             .catch(err => {
                 console.log(err)
             })
 
     }
-
 
     componentDidMount() {
         Axios.get(`${API_URL}/products/${this.props.match.params.productId}`)

@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Carousel, CarouselControl, CarouselItem } from "reactstrap";
 import Axios from "axios";
+import { connect } from "react-redux"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faShippingFast,
@@ -123,9 +124,11 @@ class Home extends React.Component {
 
   renderProducts = () => {
     return this.state.bestSellerData.map((val) => {
-      return (
-        <ProductCard key={`bestseller-${val.id}`} data={val} className="m-2" />
-      );
+      if (val.productName.toLowerCase().startsWith(this.props.user.searchBar.toLowerCase())) {
+        return (
+          <ProductCard key={`bestseller-${val.id}`} data={val} className="m-2" />
+        );
+      }
     });
   };
 
@@ -133,20 +136,50 @@ class Home extends React.Component {
     this.getBestSellerData();
   }
 
+  bestSellerDataBasedOnCategory = (selectcategory) => {
+    Axios.get(`${API_URL}/products`, {
+      params: {
+        category: selectcategory
+      }
+    })
+
+      .then((res) => {
+        console.log(res)
+        this.setState({ bestSellerData: res.data });
+        console.log(this.props.user.searchBar)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+
   render() {
+
     return (
       <div>
         <div className="d-flex justify-content-center flex-row align-items-center my-3">
-          <Link to="/" style={{ color: "inherit" }}>
+          <Link to="/" style={{ color: "inherit" }}
+            onClick={() => this.bestSellerDataBasedOnCategory("Phone")}
+          >
             <h6 className="mx-4 font-weight-bold">PHONE</h6>
           </Link>
-          <Link to="/" style={{ color: "inherit" }}>
+
+          <Link to="/" style={{ color: "inherit" }}
+            onClick={() => this.bestSellerDataBasedOnCategory("Laptop")}
+          >
             <h6 className="mx-4 font-weight-bold">LAPTOP</h6>
           </Link>
-          <Link to="/" style={{ color: "inherit" }}>
+
+          <Link to="/" style={{ color: "inherit" }}
+            onClick={() => this.bestSellerDataBasedOnCategory("Tab")}
+          >
             <h6 className="mx-4 font-weight-bold">TAB</h6>
           </Link>
-          <Link to="/" style={{ color: "inherit" }}>
+
+          <Link to="/" style={{ color: "inherit" }}
+            onClick={() => this.bestSellerDataBasedOnCategory("Desktop")}
+          >
             <h6 className="mx-4 font-weight-bold">DESKTOP</h6>
           </Link>
         </div>
@@ -229,4 +262,10 @@ class Home extends React.Component {
   }
 }
 
-export default Home;
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+  };
+};
+
+export default connect(mapStateToProps)(Home);
