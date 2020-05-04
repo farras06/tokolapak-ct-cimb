@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import Cookie from "universal-cookie"
 import { logoutHandler, searchBarHandler } from "../../../redux/actions/index"
+import Axios from "axios"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons/";
@@ -17,6 +18,7 @@ import { faUser } from "@fortawesome/free-regular-svg-icons";
 
 import "./Navbar.css";
 import ButtonUI from "../Button/Button";
+import { API_URL } from "../../../constants/API";
 
 const CircleBg = ({ children }) => {
   return <div className="circle-bg">{children}</div>;
@@ -30,6 +32,9 @@ class Navbar extends React.Component {
     searchBarIsFocused: false,
     searcBarInput: "",
     dropdownOpen: false,
+    cartItem: [],
+    totalCartQuantity: 0,
+    isCondition: false
   };
 
   logoutBtnHandler = () => {
@@ -52,6 +57,33 @@ class Navbar extends React.Component {
   toggleDropdown = () => {
     this.setState({ dropdownOpen: !this.state.dropdownOpen });
   };
+
+  componentDidMount() {
+    this.getCartItems()
+  }
+
+
+
+  getCartItems = () => {
+    Axios.get(`${API_URL}/carts`, {
+      params: {
+        userId: this.props.user.id
+      }
+    })
+      .then(res => {
+        console.log(res.data)
+        this.setState({ cartItem: res.data })
+        let item = 0
+        res.data.map(val => {
+          item += val.quantity
+        })
+        this.setState({ totalCartQuantity: item })
+      })
+
+      .catch(err => {
+        console.log(err)
+      })
+  }
 
   render() {
 
@@ -89,18 +121,35 @@ class Navbar extends React.Component {
                   <FontAwesomeIcon icon={faUser} style={{ fontSize: 24 }} />
                   <p className="small ml-3 mr-4">{this.props.user.username}</p>
                 </DropdownToggle>
-                <DropdownMenu className="mt-2">
-                  <DropdownItem>
-                    <Link
-                      style={{ color: "inherit", textDecoration: "none" }}
-                      to="/admin/dashboard"
-                    >
-                      Dashboard
+
+                {this.props.user.role == "admin" ?
+
+                  (<DropdownMenu className="mt-2">
+                    <DropdownItem>
+                      <Link
+                        style={{ color: "inherit", textDecoration: "none" }}
+                        to="/admin/dashboard"
+                      >
+                        Dashboard
                     </Link>
-                  </DropdownItem>
-                  <DropdownItem>Members</DropdownItem>
-                  <DropdownItem>Payments</DropdownItem>
-                </DropdownMenu>
+                    </DropdownItem>
+                    <DropdownItem>Members</DropdownItem>
+                    <DropdownItem>Payments</DropdownItem>
+                  </DropdownMenu>) :
+
+                  (<DropdownMenu className="mt-2">
+                    <DropdownItem>
+                      <Link
+                        style={{ color: "inherit", textDecoration: "none" }}
+                        to="/wishlist"
+                      >
+                        Wish List
+                    </Link>
+                    </DropdownItem>
+                    <DropdownItem>Histoy</DropdownItem>
+                  </DropdownMenu>)
+                }
+
               </Dropdown>
               <Link
                 className="d-flex flex-row"
@@ -114,7 +163,7 @@ class Navbar extends React.Component {
                 />
                 <CircleBg>
                   <small style={{ color: "#3C64B1", fontWeight: "bold" }}>
-                    4
+                    {this.state.totalCartQuantity}
                   </small>
                 </CircleBg>
               </Link>

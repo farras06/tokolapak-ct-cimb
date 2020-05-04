@@ -13,13 +13,15 @@ import AuthScreen from "./views/screens/Auth/AuthScreen";
 import ProductDetails from "./views/screens/ProductDetails/ProductDetails";
 import Cart from "./views/screens/Cart/Cart";
 import AdminDashboard from "../src/views/screens/AdminDashboard/AdminDashboard";
+import WishList from "../src/views/screens/WishList/WishList"
+import AdminMember from "./views/screens/AdminMember/AdminMember";
 
 const cookieObj = new Cookie();
 
 class App extends React.Component {
   componentDidMount() {
     setTimeout(() => {
-      let cookieResult = cookieObj.get("authData");
+      let cookieResult = cookieObj.get("authData", { path: "/" })
       if (cookieResult) {
         this.props.keepLogin(cookieResult);
       } else {
@@ -28,11 +30,12 @@ class App extends React.Component {
     }, 2000);
   }
 
-  adminDashboardcall = () => {
-    if (this.props.user.role == "admin") {
-
+  renderAdminRoutes = () => {
+    if (this.props.user.role === "admin") {
+      console.log(this.props.user)
+      return <Route exact path="/admin/dashboard" component={AdminDashboard} />;
     }
-  }
+  };
 
   render() {
     if (this.props.user.cookieChecked) {
@@ -47,9 +50,11 @@ class App extends React.Component {
               path="/product/:productId"
               component={ProductDetails}
             />
+            <Route exact path="/wishlist" component={WishList} />
             <Route exact path="/cart" component={Cart} />
-            <Route exact path="/admin" component={AdminDashboard} />
-
+            <Route exact path="/member" component={AdminMember} />
+            {this.renderAdminRoutes()}
+            {/* <Route path="*" component={} /> */}
           </Switch>
           <div style={{ height: "120px" }} />
         </>
@@ -57,6 +62,8 @@ class App extends React.Component {
     } else {
       return <div>Loading ...</div>;
     }
+
+
   }
 }
 
@@ -82,3 +89,17 @@ export default connect(mapStateToProps, mapDispatchToProps)(withRouter(App));
  * 5. Ketika confirm checkout, lakukan POST request ke db.json ke transaction
  *    -> lalu cart harus kosong
  */
+
+// * TRANSACTIONS
+// * userId
+// * total belanja
+// * status -> "pending"
+// * tanggal belanja
+// * tanggal selesai -> ""
+// * 
+// * TRANSACTION_DETAILS
+// * transactionId
+// * productId
+// * price
+// * quantity
+// * totalPrice (price * quantity)

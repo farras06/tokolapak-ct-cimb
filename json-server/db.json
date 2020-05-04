@@ -2,11 +2,12 @@
   "users": [
     {
       "username": "farras",
-      "fullName": "farras ammar",
-      "password": "123",
+      "fullName": "farras mantap",
+      "password": "12345",
       "address": "alamat",
       "role": "user",
-      "id": 1
+      "id": 1,
+      "email": "farras@gmail"
     },
     {
       "username": "doraemon",
@@ -21,7 +22,7 @@
       "fullName": "Dora Emon",
       "password": "password",
       "email": "doraemon@mail.com",
-      "role": "user",
+      "role": "admin",
       "id": 3
     },
     {
@@ -31,15 +32,23 @@
       "email": "admin@mail.com",
       "role": "admin",
       "id": 4
+    },
+    {
+      "username": "intan",
+      "fullName": "intan tane",
+      "password": "12345",
+      "email": "tane@gmail.com",
+      "role": "user",
+      "id": 5
     }
   ],
   "products": [
     {
       "productName": "iPhone 7 +",
       "price": 5000000,
-      "category": "Tab",
+      "category": "Phone",
       "image": "https://ibox.co.id/media/wysiwyg/PromoOnline/web-banner---iphone-7-plus-rev.png",
-      "desc": "HP Terbaikk loh",
+      "desc": "HP Terbaikk loh mantap",
       "id": 1
     },
     {
@@ -70,7 +79,7 @@
     {
       "productName": "iPhone 11 Pro Max",
       "price": "24000000",
-      "category": "",
+      "category": "Phone",
       "image": "https://ibox.co.id/media/catalog/product/cache/3/image/9df78eab33525d08d6e5fb8d27136e95/i/p/iphone-11-pro-max-midnight-green_3.png",
       "desc": "HP Kamera boba",
       "id": 5
@@ -82,21 +91,15 @@
       "image": "https://ibox.co.id/media/catalog/product/cache/3/image/9df78eab33525d08d6e5fb8d27136e95/i/p/iphone-11-pro-max-midnight-green_3.png",
       "desc": "asdasdasdsd",
       "id": 6
-    },
-    {
-      "productName": "iPhone Max bet",
-      "price": "3132312",
-      "category": "Phone",
-      "image": "https://ibox.co.id/media/catalog/product/cache/3/image/9df78eab33525d08d6e5fb8d27136e95/i/p/iphone-11-pro-max-midnight-green_3.png",
-      "desc": "asdasdasdadadad",
-      "id": 7
     }
   ],
   "carts": [
     {
-      "userId": 2,
-      "productId": 2,
-      "quantity": 1,
+      "username": "farras",
+      "fullName": "farras mantap",
+      "password": "123",
+      "address": "alamat",
+      "role": "user",
       "id": 1
     },
     {
@@ -110,96 +113,70 @@
       "productId": 1,
       "quantity": 9,
       "id": 3
+    },
+    {
+      "username": "mama",
+      "fullName": "",
+      "password": "",
+      "email": "",
+      "role": "",
+      "id": 4
+    }
+  ],
+  "wishList": [
+    {
+      "userId": 1,
+      "productId": 4,
+      "id": 3
+    },
+    {
+      "userId": 1,
+      "productId": 5,
+      "id": 4
     }
   ],
   "transaction": [
     {
       "userId": 1,
-      "totalPrice": 5000000,
+      "totalPrice": 61000000,
       "status": "pending",
-      "items": [
-        {
-          "productName": "iPhone 7 +",
-          "price": 5000000,
-          "category": "Tab",
-          "image": "https://ibox.co.id/media/wysiwyg/PromoOnline/web-banner---iphone-7-plus-rev.png",
-          "desc": "HP Terbaikk loh",
-          "id": 1
-        }
-      ],
       "id": 1
     },
     {
       "userId": 1,
-      "totalPrice": 5000000,
+      "totalPrice": 45000000,
       "status": "pending",
-      "items": [
-        {
-          "productName": "iPhone 7 +",
-          "price": 5000000,
-          "category": "Tab",
-          "image": "https://ibox.co.id/media/wysiwyg/PromoOnline/web-banner---iphone-7-plus-rev.png",
-          "desc": "HP Terbaikk loh",
-          "id": 1
-        }
-      ],
+      "id": 2
+    }
+  ],
+  "transactionDetail": [
+    {
+      "productId": 1,
+      "price": 5000000,
+      "totalPrice": 15000000,
+      "transactionId": 1,
+      "id": 1
+    },
+    {
+      "productId": 4,
+      "price": "23000000",
+      "totalPrice": 46000000,
+      "transactionId": 1,
       "id": 2
     },
     {
-      "userId": 1,
-      "totalPrice": 15000000,
-      "status": "pending",
-      "items": [
-        {
-          "productName": "iPhone 7 +",
-          "price": 5000000,
-          "category": "Tab",
-          "image": "https://ibox.co.id/media/wysiwyg/PromoOnline/web-banner---iphone-7-plus-rev.png",
-          "desc": "HP Terbaikk loh",
-          "id": 1
-        }
-      ],
+      "productId": 3,
+      "price": 20000000,
+      "totalPrice": 40000000,
+      "transactionId": 2,
       "id": 3
     },
     {
-      "userId": 1,
-      "totalPrice": 15000000,
-      "status": "pending",
-      "items": [
-        {
-          "productName": "iPhone 7 +",
-          "price": 5000000,
-          "category": "Tab",
-          "image": "https://ibox.co.id/media/wysiwyg/PromoOnline/web-banner---iphone-7-plus-rev.png",
-          "desc": "HP Terbaikk loh",
-          "id": 1
-        }
-      ],
+      "productId": 1,
+      "price": 5000000,
+      "totalPrice": 5000000,
+      "transactionId": 2,
       "id": 4
-    },
-    {
-      "userId": 1,
-      "totalPrice": 55000000,
-      "status": "pending",
-      "items": [
-        {
-          "productName": "iPhone 7 +",
-          "price": 5000000,
-          "category": "Tab",
-          "image": "https://ibox.co.id/media/wysiwyg/PromoOnline/web-banner---iphone-7-plus-rev.png",
-          "desc": "HP Terbaikk loh",
-          "id": 1
-        },
-        {
-          "productName": "Macbook Pro",
-          "price": 20000000,
-          "category": "Laptop",
-          "image": "https://ibox.co.id/media/catalog/product/cache/3/image/9df78eab33525d08d6e5fb8d27136e95/m/b/mbp15touch-silver-select-cto-201807_3_1.jpeg",
-          "desc": "HP Terbaikk loh",
-          "id": 3
-        }
-      ],
-      "id": 5
     }
   ]
 }

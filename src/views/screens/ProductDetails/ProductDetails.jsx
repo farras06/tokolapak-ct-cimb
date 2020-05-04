@@ -27,15 +27,12 @@ class ProductDetails extends React.Component {
             }
         })
             .then(res => {
-
                 if (res.data.length == 0) {
-
                     Axios.post(`${API_URL}/carts`, {
                         userId: this.props.user.id,
                         productId: this.state.productData.id,
                         quantity: 1
                     })
-
                         .then(res => {
                             console.log(res)
                             swal("Success!", "Item Added", "success")
@@ -43,24 +40,50 @@ class ProductDetails extends React.Component {
                         .catch(err => {
                             console.log(err)
                         })
-
                 } else {
-
                     Axios.patch(`${API_URL}/carts/${res.data[0].id}`, {
                         quantity: res.data[0].quantity + 1
                     })
-
                         .then(res => {
                             console.log(res)
                             swal("Success!", "Item Added", "success")
                         })
-
                         .catch(err => {
                             console.log(err)
                         })
                 }
             })
+            .catch(err => {
+                console.log(err)
+            })
 
+    }
+
+    addToWishListHandler = () => {
+        Axios.get(`${API_URL}/wishList`, {
+            params: {
+                userId: this.props.user.id,
+                productId: this.state.productData.id,
+            }
+        })
+            .then(res => {
+                if (res.data.length == 0) {
+                    Axios.post(`${API_URL}/wishList`, {
+                        userId: this.props.user.id,
+                        productId: this.state.productData.id,
+                    })
+                        .then(res => {
+                            console.log(res)
+                            swal("Success!", "Item Added to Wish Liat", "success")
+                        })
+                        .catch(err => {
+                            console.log(err)
+                        })
+                } else {
+                    swal("Success!", "Item already in Wish List", "success")
+
+                }
+            })
             .catch(err => {
                 console.log(err)
             })
@@ -85,9 +108,9 @@ class ProductDetails extends React.Component {
         return (
             <div>
                 <div className="container">
-                    <div className="row">
+                    <div className="row py-4">
                         <div className="col-6 text-center">
-                            <img style={{ width: "100 %", objectFit: "contain", height: "550px" }}
+                            <img style={{ width: "100%", objectFit: "contain", height: "550px" }}
                                 src={image}
                                 alt=""
                             />
@@ -105,7 +128,9 @@ class ProductDetails extends React.Component {
                                 <ButtonUI
                                     onClick={this.addToCartHandler}
                                 >Add to card </ButtonUI>
-                                <ButtonUI className="ml-4" type="outlined">
+                                <ButtonUI className="ml-4" type="outlined"
+                                    onClick={this.addToWishListHandler}
+                                >
                                     Add to Wish List
                                 </ButtonUI>
                             </div>

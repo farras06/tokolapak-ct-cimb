@@ -136,11 +136,10 @@ class Cart extends React.Component {
         _expand: "product"
       }
     })
-
       .then(res => {
         console.log(res.data)
         res.data.map((val) => {
-          this.setState({ checkOutData: [...this.state.checkOutData, val.product] })
+          // this.setState({ checkOutData: [...this.state.checkOutData, val.product] })
           Axios.delete(`${API_URL}/carts/${val.id}`)
             .then(res => {
               console.log(res)
@@ -155,11 +154,23 @@ class Cart extends React.Component {
           userId: this.props.user.id,
           totalPrice: this.state.totalPrice,
           status: "pending",
-          items: this.state.checkOutData,
+          // items: this.state.checkOutData,
         })
-
           .then(res => {
-            console.log(res.data)
+            this.state.cartData.map(val => {
+              Axios.post(`${API_URL}/transactionDetail`, {
+                productId: val.product.id,
+                price: val.product.price,
+                totalPrice: val.product.price * val.quantity,
+                transactionId: res.data.id
+              })
+                .then(res => {
+                  console.log(res)
+                })
+                .catch(err => {
+                  console.log(err)
+                })
+            })
             swal("Success!", "Silahkan ke menu payment untuk membayar", "success")
             this.setState({ cartData: '' })
           })
@@ -168,6 +179,16 @@ class Cart extends React.Component {
       .catch(err => {
         console.log(err)
       })
+  }
+
+  checkboxhandler = (e, idx) => {
+    const { checked } = e.target
+
+    if (checked) {
+      this.setState({ checkOutData: [...this.state.checkOutData, idx] })
+    } else {
+      this.setState({ checkOutData: [...this.state.checkOutData.filter((val) => val !== idx)] })
+    }
   }
 
   render() {
