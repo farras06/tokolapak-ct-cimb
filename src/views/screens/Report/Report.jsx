@@ -105,7 +105,6 @@ class Report extends React.Component {
                     if (id === nilai.productId) {
                         totalQuantity += nilai.quantity
                     }
-
                 })
             })
             return (
