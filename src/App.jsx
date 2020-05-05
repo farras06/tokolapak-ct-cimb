@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch, withRouter } from "react-router-dom";
+import { Route, Switch, withRouter, Redirect } from "react-router-dom";
 import Cookie from "universal-cookie";
 import { connect } from "react-redux";
 import { userKeepLogin, cookieChecker } from "../src/redux/actions/index"
@@ -16,7 +16,9 @@ import AdminDashboard from "../src/views/screens/AdminDashboard/AdminDashboard";
 import WishList from "../src/views/screens/WishList/WishList"
 import AdminMember from "./views/screens/AdminMember/AdminMember";
 import AdminPayment from "./views/screens/AdminPayment/AdminPayment";
-import History from "./views/screens/History";
+import History from "./views/screens/History/History";
+import NotFound from "./views/screens/Notfound/NotFound";
+import Report from "./views/screens/Report/Report";
 
 const cookieObj = new Cookie();
 
@@ -40,10 +42,11 @@ class App extends React.Component {
           <Route exact path="/admin/dashboard" component={AdminDashboard} />
           <Route exact path="/admin/member" component={AdminMember} />
           <Route exact path="/admin/payment" component={AdminPayment} />
+          <Route exact path="/admin/report" component={Report} />
         </>
       )
     } else {
-      return <div>Not Found</div>
+      return <Redirect to="/notfound" />
     }
   };
 
@@ -63,6 +66,8 @@ class App extends React.Component {
             <Route exact path="/wishlist" component={WishList} />
             <Route exact path="/cart" component={Cart} />
             <Route exact path="/history" component={History} />
+            <Route exact path="/notfound" component={NotFound} />
+
             {this.renderAdminRoutes()}
             {/* <Route path="*" component={} /> */}
           </Switch>

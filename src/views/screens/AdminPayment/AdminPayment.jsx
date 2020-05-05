@@ -52,11 +52,11 @@ class AdminPayment extends React.Component {
 
     renderTransactionData = () => {
         return this.state.transactionData.map((val, idx) => {
-            const { userId, totalPrice, transactionCompleted, transactionStarted, status, id } = val
+            const { userId, totalPrice, transactionCompleted, transactionStarted, status, id, userName } = val
             return (
                 <tr>
                     <td> {idx + 1} </td>
-                    <td> user Id {userId} </td>
+                    <td> {userName} </td>
                     <td> {new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(totalPrice)} </td>
                     <td> {transactionStarted} </td>
                     <td> {transactionCompleted} </td>
@@ -122,7 +122,7 @@ class AdminPayment extends React.Component {
                     <thead>
                         <tr>
                             <th>NO</th>
-                            <th>User ID</th>
+                            <th>User Name</th>
                             <th>Total Price</th>
                             <th>Transaction Started Date</th>
                             <th>Transaction Completed Date</th>

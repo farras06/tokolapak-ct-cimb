@@ -162,6 +162,7 @@ class Cart extends React.Component {
 
         Axios.post(`${API_URL}/transaction`, {
           userId: this.props.user.id,
+          userName: this.props.user.username,
           totalPrice: this.state.totalPrice,
           status: "pending",
           transactionStarted: this.state.transactionStartedDate.toLocaleDateString(),
@@ -176,6 +177,9 @@ class Cart extends React.Component {
                 price: val.product.price,
                 totalPrice: this.state.totalharga,
                 transactionId: res.data.id,
+                quantity: val.quantity,
+                productName: val.product.productName,
+                userName: this.props.user.username
 
               })
                 .then(res => {
