@@ -96,7 +96,7 @@ class Cart extends React.Component {
     })
 
     this.setState({ totalharga: itemPrice })
-    console.log(this.state.totalPrice)
+    console.log(this.state.totalharga)
   }
 
   checkOutDisplay = () => {
@@ -163,7 +163,7 @@ class Cart extends React.Component {
         Axios.post(`${API_URL}/transaction`, {
           userId: this.props.user.id,
           userName: this.props.user.username,
-          totalPrice: this.state.totalPrice,
+          totalPrice: this.state.totalharga,
           status: "pending",
           transactionStarted: this.state.transactionStartedDate.toLocaleDateString(),
           transactionCompleted: ""

@@ -9,6 +9,7 @@ class History extends React.Component {
 
     state = {
         historyList: [],
+        listProductDetail: []
     }
 
     componentDidMount() {
@@ -31,9 +32,14 @@ class History extends React.Component {
             })
     }
 
+    UserHistoryDetail = (id) => {
+        const { transactionDetail } = this.state.historyList[id]
+        this.setState({ listProductDetail: transactionDetail })
+    }
+
     renderUserHistory = () => {
         return this.state.historyList.map((val, idx) => {
-            const { transactionCompleted, transactionStarted, status, totalPrice, transactionDetail, userName, id } = val
+            const { transactionCompleted, transactionStarted, status, totalPrice, userName, } = val
             return (
                 <>
                     <tr>
@@ -45,7 +51,7 @@ class History extends React.Component {
                         <td> {status} </td>
                         <td>
                             <ButtonUI
-                                onClick={() => this.renderUserHistoryDetail(idx)}
+                                onClick={() => this.UserHistoryDetail(idx)}
                             > Detail
                                 </ButtonUI>
                         </td>
@@ -58,24 +64,22 @@ class History extends React.Component {
     }
 
 
-    renderUserHistoryDetail = (idx) => {
-        return this.state.historyList.map((val, idx) => {
-            const { transactionDetail } = val
-            return transactionDetail.map((value, ) => {
-                const { price, quantity, totalPrice, productName, } = value
-                return (
-                    <>
-                        <tr>
-                            <td> {productName} </td>
-                            <td> {new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(price)} </td>
-                            <td> {quantity} </td>
-                            <td> {new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(totalPrice)} </td>
-                        </tr>
+    renderUserHistoryDetail = () => {
+        return this.state.listProductDetail.map((val, idx) => {
+            const { price, quantity, totalPrice, productName, } = val
+            return (
+                <>
+                    <tr>
+                        <td> {productName} </td>
+                        <td> {new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(price)} </td>
+                        <td> {quantity} </td>
+                        <td> {new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(totalPrice)} </td>
+                    </tr>
 
-                    </>
+                </>
 
-                )
-            })
+            )
+
         })
     }
 

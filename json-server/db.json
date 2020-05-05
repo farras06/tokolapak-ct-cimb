@@ -105,18 +105,6 @@
       "productId": 1,
       "quantity": 9,
       "id": 3
-    },
-    {
-      "userId": 4,
-      "productId": 2,
-      "quantity": 2,
-      "id": 6
-    },
-    {
-      "userId": 4,
-      "productId": 3,
-      "quantity": 2,
-      "id": 7
     }
   ],
   "wishList": [
@@ -136,19 +124,82 @@
       "userId": 1,
       "userName": "farras",
       "totalPrice": 0,
-      "status": "pending",
+      "status": "done",
       "transactionStarted": "5/5/2020",
-      "transactionCompleted": "",
+      "transactionCompleted": "5/5/2020",
       "id": 11
     },
     {
       "userId": 1,
       "userName": "farras",
       "totalPrice": 0,
+      "status": "done",
+      "transactionStarted": "5/5/2020",
+      "transactionCompleted": "5/5/2020",
+      "id": 12
+    },
+    {
+      "userId": 1,
+      "userName": "farras",
+      "totalPrice": 0,
+      "status": "done",
+      "transactionStarted": "5/5/2020",
+      "transactionCompleted": "5/5/2020",
+      "id": 13
+    },
+    {
+      "userId": 1,
+      "userName": "farras",
+      "totalPrice": 0,
+      "status": "done",
+      "transactionStarted": "5/5/2020",
+      "transactionCompleted": "5/5/2020",
+      "id": 14
+    },
+    {
+      "userId": 4,
+      "userName": "admin",
+      "totalPrice": 0,
+      "status": "done",
+      "transactionStarted": "5/5/2020",
+      "transactionCompleted": "5/5/2020",
+      "id": 15
+    },
+    {
+      "userId": 4,
+      "userName": "admin",
+      "totalPrice": 30000000,
+      "status": "done",
+      "transactionStarted": "5/5/2020",
+      "transactionCompleted": "5/5/2020",
+      "id": 16
+    },
+    {
+      "userId": 1,
+      "userName": "farras",
+      "totalPrice": 48100000,
+      "status": "done",
+      "transactionStarted": "5/5/2020",
+      "transactionCompleted": "5/5/2020",
+      "id": 17
+    },
+    {
+      "userId": 4,
+      "userName": "admin",
+      "totalPrice": 5100000,
       "status": "pending",
       "transactionStarted": "5/5/2020",
       "transactionCompleted": "",
-      "id": 12
+      "id": 18
+    },
+    {
+      "userId": 4,
+      "userName": "admin",
+      "totalPrice": 5100000,
+      "status": "done",
+      "transactionStarted": "5/5/2020",
+      "transactionCompleted": "5/5/2020",
+      "id": 19
     }
   ],
   "transactionDetail": [
@@ -161,6 +212,86 @@
       "productName": "iPad Pro 3",
       "userName": "farras",
       "id": 14
+    },
+    {
+      "productId": 2,
+      "price": 15000000,
+      "totalPrice": 30100000,
+      "transactionId": 13,
+      "quantity": 2,
+      "productName": "iPad Pro 3",
+      "userName": "farras",
+      "id": 15
+    },
+    {
+      "productId": 3,
+      "price": 20000000,
+      "totalPrice": 40050000,
+      "transactionId": 14,
+      "quantity": 2,
+      "productName": "Macbook Pro",
+      "userName": "farras",
+      "id": 16
+    },
+    {
+      "productId": 2,
+      "price": 15000000,
+      "totalPrice": 85200000,
+      "transactionId": 15,
+      "quantity": 3,
+      "productName": "iPad Pro 3",
+      "userName": "admin",
+      "id": 17
+    },
+    {
+      "productId": 3,
+      "price": 20000000,
+      "totalPrice": 85200000,
+      "transactionId": 15,
+      "quantity": 2,
+      "productName": "Macbook Pro",
+      "userName": "admin",
+      "id": 18
+    },
+    {
+      "productId": 2,
+      "price": 15000000,
+      "totalPrice": 30000000,
+      "transactionId": 16,
+      "quantity": 2,
+      "productName": "iPad Pro 3",
+      "userName": "admin",
+      "id": 19
+    },
+    {
+      "productId": 5,
+      "price": "24000000",
+      "totalPrice": 48100000,
+      "transactionId": 17,
+      "quantity": 2,
+      "productName": "iPhone 11 Pro Max",
+      "userName": "farras",
+      "id": 20
+    },
+    {
+      "productId": 1,
+      "price": 5000000,
+      "totalPrice": 5100000,
+      "transactionId": 18,
+      "quantity": 1,
+      "productName": "iPhone 7 +",
+      "userName": "admin",
+      "id": 21
+    },
+    {
+      "productId": 1,
+      "price": 5000000,
+      "totalPrice": 5100000,
+      "transactionId": 19,
+      "quantity": 1,
+      "productName": "iPhone 7 +",
+      "userName": "admin",
+      "id": 22
     }
   ]
 }

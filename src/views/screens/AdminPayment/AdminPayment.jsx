@@ -10,6 +10,7 @@ class AdminPayment extends React.Component {
 
     state = {
         transactionData: [],
+        listProductDetail: [],
         transactionCompletedDate: new Date,
         viewOption: "",
 
@@ -26,7 +27,8 @@ class AdminPayment extends React.Component {
     getTransactionData = (select) => {
         Axios.get(`${API_URL}/transaction`, {
             params: {
-                status: select
+                status: select,
+                _embed: "transactionDetail"
             }
         })
             .then(res => {
@@ -39,7 +41,11 @@ class AdminPayment extends React.Component {
     }
 
     getTransactionDataAll = () => {
-        Axios.get(`${API_URL}/transaction`)
+        Axios.get(`${API_URL}/transaction`, {
+            params: {
+                _embed: "transactionDetail"
+            }
+        })
             .then(res => {
                 console.log(res.data)
                 this.setState({ transactionData: res.data })
@@ -64,15 +70,47 @@ class AdminPayment extends React.Component {
                     <td>
                         <ButtonUI
                             onClick={() => this.transactionCompletedHandler(id)}
-                            type="outlined"
+                            type="contained"
 
                         > Confirm
+                        </ButtonUI>
+
+                        <ButtonUI
+                            className="mt-4"
+                            onClick={() => this.transactionDetailHandler(idx)}
+                            type="outlined"
+
+                        > Detail
                         </ButtonUI>
                     </td>
 
                 </tr>
             )
         })
+    }
+
+    renderUserHistoryDetail = () => {
+        return this.state.listProductDetail.map((val, idx) => {
+            const { price, quantity, totalPrice, productName, } = val
+            return (
+                <>
+                    <tr>
+                        <td> {productName} </td>
+                        <td> {new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(price)} </td>
+                        <td> {quantity} </td>
+                        <td> {new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(totalPrice)} </td>
+                    </tr>
+
+                </>
+
+            )
+
+        })
+    }
+
+    transactionDetailHandler = (id) => {
+        const { transactionDetail } = this.state.transactionData[id]
+        this.setState({ listProductDetail: transactionDetail })
     }
 
     transactionCompletedHandler = (id) => {
@@ -135,6 +173,22 @@ class AdminPayment extends React.Component {
                     </tbody>
 
                 </Table>
+
+                <Table>
+                    <thead>
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>total Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.renderUserHistoryDetail()}
+                    </tbody>
+                </Table>
+
+
             </div>
         )
     }
