@@ -80,7 +80,7 @@ class ProductDetails extends React.Component {
                             console.log(err)
                         })
                 } else {
-                    swal("Success!", "Item already in Wish List", "success")
+                    swal("Error", "Item already in Wish List", "error")
 
                 }
             })

@@ -15,6 +15,8 @@ import Cart from "./views/screens/Cart/Cart";
 import AdminDashboard from "../src/views/screens/AdminDashboard/AdminDashboard";
 import WishList from "../src/views/screens/WishList/WishList"
 import AdminMember from "./views/screens/AdminMember/AdminMember";
+import AdminPayment from "./views/screens/AdminPayment/AdminPayment";
+import History from "./views/screens/History";
 
 const cookieObj = new Cookie();
 
@@ -33,7 +35,15 @@ class App extends React.Component {
   renderAdminRoutes = () => {
     if (this.props.user.role === "admin") {
       console.log(this.props.user)
-      return <Route exact path="/admin/dashboard" component={AdminDashboard} />;
+      return (
+        <>
+          <Route exact path="/admin/dashboard" component={AdminDashboard} />
+          <Route exact path="/admin/member" component={AdminMember} />
+          <Route exact path="/admin/payment" component={AdminPayment} />
+        </>
+      )
+    } else {
+      return <div>Not Found</div>
     }
   };
 
@@ -52,7 +62,7 @@ class App extends React.Component {
             />
             <Route exact path="/wishlist" component={WishList} />
             <Route exact path="/cart" component={Cart} />
-            <Route exact path="/member" component={AdminMember} />
+            <Route exact path="/history" component={History} />
             {this.renderAdminRoutes()}
             {/* <Route path="*" component={} /> */}
           </Switch>

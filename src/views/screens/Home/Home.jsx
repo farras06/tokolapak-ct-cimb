@@ -153,12 +153,32 @@ class Home extends React.Component {
       });
   }
 
+  bestSellerDataAll = () => {
+    Axios.get(`${API_URL}/products`)
+
+      .then((res) => {
+        console.log(res)
+        this.setState({ bestSellerData: res.data });
+        console.log(this.props.user.searchBar)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+
 
   render() {
 
     return (
       <div>
         <div className="d-flex justify-content-center flex-row align-items-center my-3">
+          <Link to="/" style={{ color: "inherit" }}
+            onClick={() => this.bestSellerDataAll()}
+          >
+            <h6 className="mx-4 font-weight-bold">All</h6>
+          </Link>
+
           <Link to="/" style={{ color: "inherit" }}
             onClick={() => this.bestSellerDataBasedOnCategory("Phone")}
           >

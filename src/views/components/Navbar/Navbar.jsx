@@ -32,7 +32,7 @@ class Navbar extends React.Component {
     searchBarIsFocused: false,
     searcBarInput: "",
     dropdownOpen: false,
-    cartItem: [],
+    cartItem: 0,
     totalCartQuantity: 0,
     isCondition: false
   };
@@ -72,12 +72,7 @@ class Navbar extends React.Component {
     })
       .then(res => {
         console.log(res.data)
-        this.setState({ cartItem: res.data })
-        let item = 0
-        res.data.map(val => {
-          item += val.quantity
-        })
-        this.setState({ totalCartQuantity: item })
+        this.setState({ cartItem: res.data.length })
       })
 
       .catch(err => {
@@ -133,8 +128,24 @@ class Navbar extends React.Component {
                         Dashboard
                     </Link>
                     </DropdownItem>
-                    <DropdownItem>Members</DropdownItem>
-                    <DropdownItem>Payments</DropdownItem>
+
+                    <DropdownItem>
+                      <Link
+                        style={{ color: "inherit", textDecoration: "none" }}
+                        to="/admin/member"
+                      >
+                        Members
+                    </Link>
+                    </DropdownItem>
+
+                    <DropdownItem>
+                      <Link
+                        style={{ color: "inherit", textDecoration: "none" }}
+                        to="/admin/payment"
+                      >
+                        Payment
+                    </Link>
+                    </DropdownItem>
                   </DropdownMenu>) :
 
                   (<DropdownMenu className="mt-2">
@@ -146,7 +157,15 @@ class Navbar extends React.Component {
                         Wish List
                     </Link>
                     </DropdownItem>
-                    <DropdownItem>Histoy</DropdownItem>
+
+                    <DropdownItem>
+                      <Link
+                        style={{ color: "inherit", textDecoration: "none" }}
+                        to="/history"
+                      >
+                        History
+                    </Link>
+                    </DropdownItem>
                   </DropdownMenu>)
                 }
 
@@ -163,7 +182,7 @@ class Navbar extends React.Component {
                 />
                 <CircleBg>
                   <small style={{ color: "#3C64B1", fontWeight: "bold" }}>
-                    {this.state.totalCartQuantity}
+                    {this.state.cartItem}
                   </small>
                 </CircleBg>
               </Link>

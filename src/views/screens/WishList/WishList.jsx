@@ -8,6 +8,7 @@ import ButtonUI from "../../components/Button/Button";
 import { Link } from "react-router-dom"
 import swal from 'sweetalert'
 
+
 class WishList extends React.Component {
 
     state = {
@@ -56,8 +57,9 @@ class WishList extends React.Component {
                         <ButtonUI
                             type="contained"
                             onClick={() => this.deleteWishLitHandler(id)}
-                        > Delete From Wish List
+                        > Delete
                         </ButtonUI>
+
                     </td>
                 </tr>
             )

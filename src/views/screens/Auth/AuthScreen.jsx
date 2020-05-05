@@ -8,6 +8,7 @@ import ButtonUI from "../../components/Button/Button";
 import "./AuthScreen.css";
 
 import { registerHandler, loginHandler } from "../../../redux/actions";
+import swal from "sweetalert";
 
 
 
@@ -30,7 +31,7 @@ class AuthScreen extends React.Component {
 
   componentDidUpdate() {
     if (this.props.user.id) {
-      alert("login");
+      swal("Success!", "Welcome", "success")
       const cookie = new Cookies();
       cookie.set("authData", JSON.stringify(this.props.user), { path: "/" });
     }

@@ -15,9 +15,16 @@ class Cart extends React.Component {
   state = {
     cartData: [],
     checkOutData: [],
+    transactionStartedDate: new Date,
     isCheckOut: false,
     totalPrice: 0,
+    totalharga: 0,
+    deliveryMethod: 0
   };
+
+  inputHandler = (e, field) => {
+    this.setState({ [field]: e.target.value })
+  }
 
   getCartData = () => {
     Axios.get(`${API_URL}/carts`, {
@@ -83,10 +90,12 @@ class Cart extends React.Component {
   checkOutHandler = () => {
     let itemPrice = 0
     this.setState({ isCheckOut: true })
+    let delivery = parseInt(this.state.deliveryMethod)
     this.state.cartData.map(val => {
-      itemPrice += val.product.price * val.quantity
+      itemPrice += (val.product.price * val.quantity) + delivery
     })
-    this.setState({ totalPrice: itemPrice })
+
+    this.setState({ totalharga: itemPrice })
     console.log(this.state.totalPrice)
   }
 
@@ -119,10 +128,11 @@ class Cart extends React.Component {
           <tfoot>
             <tr>
               <td> Total Price   </td>
-              <td className="ml-4"> {new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(this.state.totalPrice)} </td>
+              <td className="ml-4"> {new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(this.state.totalharga)} </td>
             </tr>
           </tfoot>
         </Table>
+
         <ButtonUI type="outlined" onClick={() => { this.confirmHandler() }}> Confirm </ButtonUI>
       </div>
     )
@@ -154,6 +164,9 @@ class Cart extends React.Component {
           userId: this.props.user.id,
           totalPrice: this.state.totalPrice,
           status: "pending",
+          transactionStarted: this.state.transactionStartedDate.toLocaleDateString(),
+          transactionCompleted: ""
+
           // items: this.state.checkOutData,
         })
           .then(res => {
@@ -161,8 +174,9 @@ class Cart extends React.Component {
               Axios.post(`${API_URL}/transactionDetail`, {
                 productId: val.product.id,
                 price: val.product.price,
-                totalPrice: val.product.price * val.quantity,
-                transactionId: res.data.id
+                totalPrice: this.state.totalharga,
+                transactionId: res.data.id,
+
               })
                 .then(res => {
                   console.log(res)
@@ -209,6 +223,21 @@ class Cart extends React.Component {
                 </tr>
               </thead>
               <tbody>{this.renderCartData()}</tbody>
+
+              <div className="mt-6">
+                <p>Choose Delivery Option :</p>
+                <select
+                  value={this.state.deliveryMethod}
+                  onChange={(e) => this.inputHandler(e, "deliveryMethod")}
+                  className="custom-text-input h-100 pl-3"
+                >
+                  <option value="" disabled="disabled">payment method</option>
+                  <option value="100000">Insatant</option>
+                  <option value="50000">Same Day</option>
+                  <option value="20000">Express</option>
+                  <option value="0">Economy</option>
+                </select>
+              </div>
             </Table>
             <ButtonUI type="outlined" onClick={this.checkOutHandler}> Check Out </ButtonUI>
 
