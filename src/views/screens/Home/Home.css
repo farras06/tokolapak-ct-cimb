@@ -2,9 +2,19 @@
   background: rgb(7, 15, 32);
   background: linear-gradient(
     90deg,
-    rgba(7, 15, 32, 1) 6%,
-    rgba(60, 100, 177, 1) 69%,
-    rgba(90, 130, 207, 1) 100%
+    rgb(83, 7, 7) 6%,
+    rgb(129, 7, 34) 69%,
+    rgb(226, 185, 185) 100%
+  );
+}
+
+
+.search-item-home-bg {
+  background: rgb(7, 15, 32);
+  background: linear-gradient(
+    90deg,
+    rgb(129, 7, 34) 5%,
+    rgb(226, 185, 185) 100%
   );
 }
 

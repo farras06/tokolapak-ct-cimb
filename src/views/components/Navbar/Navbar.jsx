@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import Cookie from "universal-cookie"
 import { logoutHandler, searchBarHandler } from "../../../redux/actions/index"
 import Axios from "axios"
+import logo from "../../../assets/images/Showcase/logo.jpeg"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons/";
@@ -85,25 +86,12 @@ class Navbar extends React.Component {
     return (
       <div className="d-flex flex-row justify-content-between align-items-center py-4 navbar-container">
         <div className="logo-text">
-          <Link style={{ textDecoration: "none", color: "inherit" }} to="/">
-            LOGO
+          <Link style={{ textDecoration: "none", color: "inherit", }} to="/">
+            <img src={logo} style={{ height: "30px", width: "90px" }} />
           </Link>
         </div>
-        <div
-          style={{ flex: 1 }}
-          className="px-5 d-flex flex-row justify-content-start"
-        >
-          <input
-            onFocus={this.onFocus}
-            onBlur={this.onBlur}
-            onChange={(e) => { this.props.onSearch(e.target.value) }}
-            className={`search-bar ${
-              this.state.searchBarIsFocused ? "active" : null
-              }`}
-            type="text"
-            placeholder="Cari produk impianmu disini"
-          />
-        </div>
+
+        <h4 className="font-weight-bold text-center">KOBUKU BOOK STORE</h4>
 
         <div className="d-flex flex-row align-items-center">
           {this.props.user.id ? (
@@ -205,20 +193,12 @@ class Navbar extends React.Component {
             </>
           ) : (
               <>
-                <ButtonUI className="mr-3" type="textual">
-                  <Link
-                    style={{ textDecoration: "none", color: "inherit" }}
-                    to="/auth"
-                  >
-                    Sign in
-                </Link>
-                </ButtonUI>
                 <ButtonUI type="contained">
                   <Link
                     style={{ textDecoration: "none", color: "inherit" }}
                     to="/auth"
                   >
-                    Sign up
+                    Sign in / Sign up
                 </Link>
                 </ButtonUI>
               </>

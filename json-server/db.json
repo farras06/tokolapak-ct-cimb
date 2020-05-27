@@ -105,6 +105,12 @@
       "productId": 1,
       "quantity": 9,
       "id": 3
+    },
+    {
+      "userId": 1,
+      "productId": 2,
+      "quantity": 3,
+      "id": 4
     }
   ],
   "wishList": [

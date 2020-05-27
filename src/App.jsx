@@ -51,32 +51,32 @@ class App extends React.Component {
   };
 
   render() {
-    if (this.props.user.cookieChecked) {
-      return (
-        <>
-          <Navbar />
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/auth" component={AuthScreen} />
-            <Route
-              exact
-              path="/product/:productId"
-              component={ProductDetails}
-            />
-            <Route exact path="/wishlist" component={WishList} />
-            <Route exact path="/cart" component={Cart} />
-            <Route exact path="/history" component={History} />
-            <Route exact path="/notfound" component={NotFound} />
+    // if (this.props.user.cookieChecked) {
+    return (
+      <>
+        <Navbar />
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/auth" component={AuthScreen} />
+          <Route
+            exact
+            path="/product/:productId"
+            component={ProductDetails}
+          />
+          <Route exact path="/wishlist" component={WishList} />
+          <Route exact path="/cart" component={Cart} />
+          <Route exact path="/history" component={History} />
+          <Route exact path="/notfound" component={NotFound} />
 
-            {this.renderAdminRoutes()}
-            {/* <Route path="*" component={} /> */}
-          </Switch>
-          <div style={{ height: "120px" }} />
-        </>
-      );
-    } else {
-      return <div>Loading ...</div>;
-    }
+          {this.renderAdminRoutes()}
+          {/* <Route path="*" component={} /> */}
+        </Switch>
+        <div style={{ height: "120px" }} />
+      </>
+    );
+    // } else {
+    return <div>Loading ...</div>;
+    // }
 
 
   }

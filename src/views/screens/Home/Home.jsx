@@ -9,42 +9,48 @@ import {
   faMoneyBillWave,
   faHeadset,
 } from "@fortawesome/free-solid-svg-icons";
+import { searchBarHandler } from "../../../redux/actions"
 import "./Home.css";
 
 import ProductCard from "../../components/Cards/ProductCard";
 
-import iPhoneX from "../../../assets/images/Showcase/iPhone-X.png";
-import iPhone8 from "../../../assets/images/Showcase/iPhone-8.png";
-import iPadPro from "../../../assets/images/Showcase/iPad-Pro.png";
+import homage_to_catalonia from "../../../assets/images/Showcase/homage_to_catalonia.jpeg"
+import a1984 from "../../../assets/images/Showcase/a1984.jpeg"
 import ButtonUI from "../../components/Button/Button";
 import CarouselShowcaseItem from "./CarouselShowcaseItem.tsx";
 import Colors from "../../../constants/Colors";
 import { API_URL } from "../../../constants/API";
+import "../../components/Navbar/Navbar.css"
 
 const dummy = [
   {
-    productName: "iPhone X",
-    image: iPhoneX,
-    desc: `Visi Apple sejak awal adalah menciptakan iPhone yang
-    sepenuhnya berisi layar. Yang begitu menghanyutkan sehingga
-    tak ada lagi batasan antara perangkat dan pengalaman. Dan
-    begitu cerdas sehingga dapat merespons dengan sekali sentuh,
-    atau bahkan sekali pandang. Dengan iPhone X, visi ini menjadi
-    kenyataan. Selamat datang, masa depan.`,
+    productName: "1984",
+    image: a1984,
+    writer: "George Orwel",
+    Published: "1949",
+    desc: `1984 is a dystopian novella by George Orwell published in 1949, which follows the life of Winston Smith, a low ranking member 
+    of ‘the Party’, who is frustrated by the omnipresent eyes of the party, and its ominous ruler Big Brother.
+    ‘Big Brother’ controls every aspect of people’s lives. It has invented the language ‘Newspeak’ in an attempt 
+    to completely eliminate political rebellion; created ‘Throughtcrimes’ to stop people even thinking of things
+    considered rebellious. The party controls what people read, speak, say and do with the threat that if they
+    disobey, they will be sent to the dreaded Room 101 as a looming punishment.
+    Orwell effectively explores the themes of mass media control, government surveillance, totalitarianism and 
+    how a dictator can manipulate and control history, thoughts, and lives in such a way that no one can escape it. `,
     id: 1,
+
   },
   {
-    productName: "iPhone 8",
-    image: iPhone8,
-    desc: `iPhone 8 memperkenalkan desain kaca yang sepenuhnya baru. Kamera paling populer di dunia, kini lebih baik lagi. Chip yang paling andal dan cerdas di ponsel pintar. Pengisian daya nirkabel yang begitu mudah dilakukan. Dan pengalaman augmented reality yang tak pernah mungkin sebelumnya. iPhone 8. iPhone generasi baru.`,
+    productName: "Homage to Catalonia",
+    image: homage_to_catalonia,
+    writer: "George Orwel",
+    Published: "1938",
+    desc: `Unleashed on 17 July 1936 by a military coup against the democratically elected government of the Second 
+    Republic, the Spanish civil war was a rehearsal for the second world war. The British, French and American governments
+    stood aside and permitted General Francisco Franco, with the substantial aid of Hitler and Mussolini, to defeat the republic. 
+    To this day, the war is remembered by many as “the last great cause”, the war of the volunteers of the International Brigades,
+    of the bombing of Guernica and of the mini-civil war within the civil war fought in Barcelona as CNT anarchists and
+    the Poum’s quasi-Trotskyists battled forces of the Catalan government, the Generalitat, backed by the communists of the PSUC.`,
     id: 2,
-  },
-  {
-    productName: "iPad Pro Gen 3",
-    image: iPadPro,
-    desc: `
-    iPad Pro baru telah didesain ulang seutuhnya dan dilengkapi dengan teknologi Apple yang paling canggih. Ini akan membuat Anda berpikir ulang apa yang iPad mampu lakukan`,
-    id: 3,
   },
 ];
 
@@ -56,7 +62,7 @@ class Home extends React.Component {
   };
 
   renderCarouselItems = () => {
-    return dummy.map(({ image, productName, desc, id }) => {
+    return dummy.map(({ image, productName, desc, writer, Published, id }) => {
       return (
         <CarouselItem
           onExiting={() => this.setState({ animating: true })}
@@ -68,8 +74,10 @@ class Home extends React.Component {
               <div className="row" style={{ paddingTop: "80px" }}>
                 <div className="col-6 text-white position-relative">
                   <h2>{productName}</h2>
+                  <p className="mt-4"> Wtiter : {writer}</p>
+                  <p className="mt-4"> Published : {Published}</p>
                   <p className="mt-4">{desc}</p>
-                  <ButtonUI
+                  {/* <ButtonUI
                     type="outlined"
                     style={{
                       backgroundColor: "#CCEAD7",
@@ -81,10 +89,10 @@ class Home extends React.Component {
                     }}
                   >
                     BUY NOW
-                  </ButtonUI>
+                  </ButtonUI> */}
                 </div>
                 <div className="col-6 d-flex flex-row justify-content-center">
-                  <img src={image} alt="" style={{ height: "750px" }} />
+                  <img src={image} alt="" style={{ height: "400px", widht: "260px" }} />
                 </div>
               </div>
             </div>
@@ -92,6 +100,14 @@ class Home extends React.Component {
         </CarouselItem>
       );
     });
+  };
+
+  onFocus = () => {
+    this.setState({ searchBarIsFocused: true });
+  };
+
+  onBlur = () => {
+    this.setState({ searchBarIsFocused: false });
   };
 
   nextHandler = () => {
@@ -166,64 +182,127 @@ class Home extends React.Component {
       });
   }
 
-
-
   render() {
 
     return (
       <div>
-        <div className="d-flex justify-content-center flex-row align-items-center my-3">
-          <Link to="/" style={{ color: "inherit" }}
-            onClick={() => this.bestSellerDataAll()}
+        <div>
+          <Carousel
+            className="carousel-item-home-bg "
+            next={this.nextHandler}
+            previous={this.prevHandler}
+            activeIndex={this.state.activeIndex}
           >
-            <h6 className="mx-4 font-weight-bold">All</h6>
-          </Link>
-
-          <Link to="/" style={{ color: "inherit" }}
-            onClick={() => this.bestSellerDataBasedOnCategory("Phone")}
-          >
-            <h6 className="mx-4 font-weight-bold">PHONE</h6>
-          </Link>
-
-          <Link to="/" style={{ color: "inherit" }}
-            onClick={() => this.bestSellerDataBasedOnCategory("Laptop")}
-          >
-            <h6 className="mx-4 font-weight-bold">LAPTOP</h6>
-          </Link>
-
-          <Link to="/" style={{ color: "inherit" }}
-            onClick={() => this.bestSellerDataBasedOnCategory("Tab")}
-          >
-            <h6 className="mx-4 font-weight-bold">TAB</h6>
-          </Link>
-
-          <Link to="/" style={{ color: "inherit" }}
-            onClick={() => this.bestSellerDataBasedOnCategory("Desktop")}
-          >
-            <h6 className="mx-4 font-weight-bold">DESKTOP</h6>
-          </Link>
+            {this.renderCarouselItems()}
+            <CarouselControl
+              directionText="Previous"
+              direction="prev"
+              onClickHandler={this.prevHandler}
+            />
+            <CarouselControl
+              directionText="Next"
+              direction="next"
+              onClickHandler={this.nextHandler}
+            />
+          </Carousel>
         </div>
-        <Carousel
-          className="carousel-item-home-bg "
-          next={this.nextHandler}
-          previous={this.prevHandler}
-          activeIndex={this.state.activeIndex}
+
+        <br />
+
+        <div
+          className="row p-4 search-item-home-bg"
+          style={{
+            backgroundColor: "#e2b9b9",
+            borderColor: "#CCEAD7",
+            borderRadius: "1px",
+          }}
         >
-          {this.renderCarouselItems()}
-          <CarouselControl
-            directionText="Previous"
-            direction="prev"
-            onClickHandler={this.prevHandler}
-          />
-          <CarouselControl
-            directionText="Next"
-            direction="next"
-            onClickHandler={this.nextHandler}
-          />
-        </Carousel>
+          <div
+            className="col-6"
+          >
+            <h4 className="font-weight-bold text-center text-white">BOOKS CATEGORY</h4>
+
+            <div className="d-flex justify-content-center flex-row align-items-center my-3">
+              <Link to="/" style={{ color: "inherit" }}
+                onClick={() => this.bestSellerDataAll()}
+              >
+                <h6 className="mx-4 font-weight-bold text-white">All</h6>
+              </Link>
+
+              <Link to="/" style={{ color: "inherit" }}
+                onClick={() => this.bestSellerDataBasedOnCategory("Phone")}
+              >
+                <h6 className="mx-4 font-weight-bold text-white">PHONE</h6>
+              </Link>
+
+              <Link to="/" style={{ color: "inherit" }}
+                onClick={() => this.bestSellerDataBasedOnCategory("Laptop")}
+              >
+                <h6 className="mx-4 font-weight-bold text-white">LAPTOP</h6>
+              </Link>
+
+              <Link to="/" style={{ color: "inherit" }}
+                onClick={() => this.bestSellerDataBasedOnCategory("Tab")}
+              >
+                <h6 className="mx-4 font-weight-bold text-white">TAB</h6>
+              </Link>
+
+              <Link to="/" style={{ color: "inherit" }}
+                onClick={() => this.bestSellerDataBasedOnCategory("Desktop")}
+              >
+                <h6 className="mx-4 font-weight-bold text-white">DESKTOP</h6>
+              </Link>
+            </div>
+          </div>
+
+          <div
+            className="col-6"
+          >
+            <h4 className="font-weight-bold text-center text-white">SEARCH YOUR BOOK</h4>
+
+            <div
+              style={{ flex: 1 }}
+              className="px-5 d-flex flex-row justify-content-start"
+            >
+              <input
+                onFocus={this.onFocus}
+                onBlur={this.onBlur}
+                onChange={(e) => { this.props.onSearch(e.target.value) }}
+                className={`search-bar ${
+                  this.state.searchBarIsFocused ? "active" : null
+                  }`}
+                type="text"
+                placeholder="Insert Your Book title"
+              />
+            </div>
+          </div>
+
+          <div
+            className="col-12 mt-4"
+          >
+            <h4 className="font-weight-bold text-center text-white">SORT BY :</h4>
+
+            <div
+              className="d-flex justify-content-center flex-row align-items-center my-3"
+            >
+              <Link to="/" style={{ color: "inherit" }}
+              // onClick={}
+              >
+                <h6 className="mx-4 font-weight-bold text-white">Lowest Price</h6>
+              </Link>
+
+              <Link to="/" style={{ color: "inherit" }}
+              // onClick={}
+              >
+                <h6 className="mx-4 font-weight-bold text-white">Highest Price</h6>
+              </Link>
+            </div>
+          </div>
+        </div>
+
         <div className="container">
           {/* BEST SELLER SECTION */}
-          <h2 className="text-center font-weight-bolder mt-5">BEST SELLER</h2>
+          <h2 className="text-center font-weight-bolder mt-5">PRODUCT</h2>
           <div className="row d-flex flex-wrap justify-content-center">
             {this.renderProducts()}
           </div>
@@ -288,4 +367,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(Home);
+const mapDispatchToProps = {
+  onSearch: searchBarHandler
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
