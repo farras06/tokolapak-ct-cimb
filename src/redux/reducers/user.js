@@ -10,7 +10,9 @@ const init_state = {
   errMsg: "",
   cookieChecked: false,
   searchBar: "",
-  role: ''
+  searchCategory: [],
+  role: "",
+
 };
 
 export default (state = init_state, action) => {
@@ -36,7 +38,9 @@ export default (state = init_state, action) => {
     case "COOKIE_CHECK":
       return { ...state, cookieChecked: true };
     case "SEARCH_ITEMS":
-      return { ...state, searchBar: action.payload }
+      return { ...state, searchBar: action.payload };
+    case "PRODUCT_CATEGORY":
+      return { ...state, searchCategory: action.payload };
     default:
       return { ...state }
   }

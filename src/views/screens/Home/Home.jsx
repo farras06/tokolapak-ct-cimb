@@ -9,7 +9,7 @@ import {
   faMoneyBillWave,
   faHeadset,
 } from "@fortawesome/free-solid-svg-icons";
-import { searchBarHandler } from "../../../redux/actions"
+import { searchBarHandler, ProductCategory } from "../../../redux/actions"
 import "./Home.css";
 
 import ProductCard from "../../components/Cards/ProductCard";
@@ -139,7 +139,7 @@ class Home extends React.Component {
   };
 
   renderProducts = () => {
-    return this.state.bestSellerData.map((val) => {
+    return this.props.user.searchCategory.map((val) => {
       if (val.productName.toLowerCase().startsWith(this.props.user.searchBar.toLowerCase())) {
         return (
           <ProductCard key={`bestseller-${val.id}`} data={val} className="m-2" />
@@ -182,6 +182,14 @@ class Home extends React.Component {
       });
   }
 
+  enterPressed = (e) => {
+    if (e.keyCode == 13) {
+      console.log('value', e.target.value);
+      console.log('enter pressed');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
   render() {
 
     return (
@@ -217,7 +225,7 @@ class Home extends React.Component {
             borderRadius: "1px",
           }}
         >
-          <div
+          {/* <div
             className="col-6"
           >
             <h4 className="font-weight-bold text-center text-white">BOOKS CATEGORY</h4>
@@ -268,6 +276,7 @@ class Home extends React.Component {
                 onFocus={this.onFocus}
                 onBlur={this.onBlur}
                 onChange={(e) => { this.props.onSearch(e.target.value) }}
+                onKeyDown={this.enterPressed}
                 className={`search-bar ${
                   this.state.searchBarIsFocused ? "active" : null
                   }`}
@@ -275,7 +284,7 @@ class Home extends React.Component {
                 placeholder="Insert Your Book title"
               />
             </div>
-          </div>
+          </div> */}
 
           <div
             className="col-12 mt-4"
@@ -301,13 +310,13 @@ class Home extends React.Component {
         </div>
 
         <div className="container">
-          {/* BEST SELLER SECTION */}
+
           <h2 className="text-center font-weight-bolder mt-5">PRODUCT</h2>
           <div className="row d-flex flex-wrap justify-content-center">
             {this.renderProducts()}
           </div>
         </div>
-        {/* ABOUT SECTION */}
+
         <div
           className="py-5"
           style={{ marginTop: "128px", backgroundColor: Colors.lightestGray }}
@@ -367,8 +376,9 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = {
-  onSearch: searchBarHandler
-};
+// const mapDispatchToProps = {
+//   onSearch: searchBarHandler,
+//   onSeacrhCategory: ProductCategory
+// };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps)(Home);

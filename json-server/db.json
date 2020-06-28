@@ -95,12 +95,6 @@
   ],
   "carts": [
     {
-      "userId": 2,
-      "productId": 2,
-      "quantity": 1,
-      "id": 2
-    },
-    {
       "userID": 1,
       "productId": 1,
       "quantity": 9,
@@ -123,6 +117,11 @@
       "userId": 1,
       "productId": 2,
       "id": 5
+    },
+    {
+      "userId": 2,
+      "productId": 4,
+      "id": 6
     }
   ],
   "transaction": [
@@ -193,9 +192,9 @@
       "userId": 4,
       "userName": "admin",
       "totalPrice": 5100000,
-      "status": "pending",
+      "status": "done",
       "transactionStarted": "5/5/2020",
-      "transactionCompleted": "",
+      "transactionCompleted": "6/26/2020",
       "id": 18
     },
     {
@@ -206,6 +205,15 @@
       "transactionStarted": "5/5/2020",
       "transactionCompleted": "5/5/2020",
       "id": 19
+    },
+    {
+      "userId": 2,
+      "userName": "doraemon",
+      "totalPrice": 40100000,
+      "status": "done",
+      "transactionStarted": "6/26/2020",
+      "transactionCompleted": "6/26/2020",
+      "id": 20
     }
   ],
   "transactionDetail": [
@@ -298,6 +306,26 @@
       "productName": "iPhone 7 +",
       "userName": "admin",
       "id": 22
+    },
+    {
+      "productId": 2,
+      "price": 15000000,
+      "totalPrice": 40100000,
+      "transactionId": 20,
+      "quantity": 2,
+      "productName": "iPad Pro 3",
+      "userName": "doraemon",
+      "id": 23
+    },
+    {
+      "productId": 1,
+      "price": 5000000,
+      "totalPrice": 40100000,
+      "transactionId": 20,
+      "quantity": 2,
+      "productName": "iPhone 7 +",
+      "userName": "doraemon",
+      "id": 24
     }
   ]
 }

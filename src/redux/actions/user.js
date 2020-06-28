@@ -115,3 +115,10 @@ export const searchBarHandler = (searchkey) => {
     payload: searchkey,
   }
 }
+
+export const ProductCategory = (category) => {
+  return {
+    type: "PRODUCT_CATEGORY",
+    payload: category
+  }
+}
